@@ -74,7 +74,7 @@
 
     ?>
   </div>
-
+<!--
   <div class="column right">
     <h2>TOP VENTAS</h2>
     <p>Cien años de soledad.</p>
@@ -82,7 +82,10 @@
     <p>El otoño del patriarca.</p>
     <p>El general en su laberinto.</p>
   </div>
-  
+  -->
+  $result = mysqli_query($conn, "SELECT books.Description, books.img, books.title FROM books WHERE eBook !='0'");
+
+
 </div>
   
 </body>
