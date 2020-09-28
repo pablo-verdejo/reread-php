@@ -72,6 +72,8 @@
       echo "0 Resultados";
     }
 
+    $result = mysqli_query($conn, "SELECT books.Description, books.img, books.title FROM books WHERE eBook !='0'");
+
     ?>
   </div>
 <!--
@@ -83,9 +85,6 @@
     <p>El general en su laberinto.</p>
   </div>
   -->
-  $result = mysqli_query($conn, "SELECT books.Description, books.img, books.title FROM books WHERE eBook !='0'");
-
-
 </div>
   
 </body>
