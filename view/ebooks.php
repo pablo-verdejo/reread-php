@@ -71,18 +71,26 @@
     }else {
       echo "0 Resultados";
     }
-
-    $result = mysqli_query($conn, "SELECT books.Description, books.img, books.title FROM books WHERE eBook !='0'");
-
     ?>
   </div>
-<!--
-  <div class="column right">
-    <h2>TOP VENTAS</h2>
-    <p>Cien años de soledad.</p>
-    <p>Crónica de una muerte anunciada.</p>
-    <p>El otoño del patriarca.</p>
-    <p>El general en su laberinto.</p>
+  <?php
+  $result = mysqli_query($conn, "SELECT books.title FROM books WHERE Top !='0'");
+    echo "<div class='column right'>";
+    echo "<h2>TOP VENTAS</h2>";
+      if(!empty($result) && mysqli_num_rows($result) > 0){
+        while ($row = mysqli_fetch_array($result)){
+          echo "<p>".$row['title']."</p>";
+        }
+      }
+    echo "</div>";
+    ?>
+  <!--
+    <div class="column right">
+     <h2>TOP VENTAS</h2>
+      <p>Cien años de soledad.</p>
+      <p>Crónica de una muerte anunciada.</p>
+      <p>El otoño del patriarca.</p>
+      <p>El general en su laberinto.</p>
   </div>
   -->
 </div>
