@@ -74,7 +74,7 @@
 
     ?>
   </div>
-  
+
   <div class="column right">
     <h2>TOP VENTAS</h2>
     <p>Cien años de soledad.</p>
