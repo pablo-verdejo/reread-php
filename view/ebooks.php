@@ -22,19 +22,19 @@
   <div class="column left">
 
     <div class="topnav">
-      <a href="../index.html">Re-Read</a>
-      <a href="libros.html">Libros</a>
-      <a href="ebooks.html">eBooks</a>
+      <a href="../index.php">Re-Read</a>
+      <a href="libros.php">Libros</a>
+      <a href="ebooks.php">eBooks</a>
     </div>
     
     <h3>Toda la actualidad en eBook</h3>
     <!--Ebooks-->
-    <div class="eBooks">
+    <!-- <div class="eBooks">
       <a target="_blank" href="https://www.amazon.es/Los-hombres-del-Norte-793-1241-ebook/dp/B01CTCDSDW/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=1600711738&sr=8-1">
       <img src="../img/libro1.jpg" alt="eBook 1">
       <div>Los hombres del norte</div>
     </div>
-
+    
     <div class="eBooks">
       <a href="https://www.amazon.es/dos-metros-ti-Rachael-Lippincott-ebook/dp/B07M6SH243/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=1600711897&sr=8-3">
       <img src="../img/libro2.jpg" alt="eBook 2">
@@ -52,7 +52,27 @@
       <img src="../img/libro4.jpg" alt="eBook 4">
       <div>El dia que se perdio la cordura</div>
     </div>
+    -->
+    <?php
 
+    include '../services/connection.php';
+
+    $result = mysqli_query($conn, "SELECT books.Description, books.img, books.title FROM books WHERE eBook !='0'");
+
+    if(!empty($result) && mysqli_num_rows($result) > 0){
+      while ($row = mysqli_fetch_array($result)){
+        echo "<div class='eBooks'>";
+        // Añadimos la Imagen a la pagina
+        echo "<img src=../img/".$row['img']." alt='".$row['title']."'>";
+        // Añadimos el titulo a la pagina
+        echo "<div class='desc'>".$row['title']."</div>";
+        echo "</div>";
+      }
+    }else {
+      echo "0 Resultados";
+    }
+
+    ?>
   </div>
   
   <div class="column right">
