@@ -29,12 +29,12 @@
     
     <h3>Toda la actualidad en eBook</h3>
     <!--Ebooks-->
-    <div class="eBooks">
+    <!-- <div class="eBooks">
       <a target="_blank" href="https://www.amazon.es/Los-hombres-del-Norte-793-1241-ebook/dp/B01CTCDSDW/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=1600711738&sr=8-1">
       <img src="../img/libro1.jpg" alt="eBook 1">
       <div>Los hombres del norte</div>
     </div>
-    <!--
+    
     <div class="eBooks">
       <a href="https://www.amazon.es/dos-metros-ti-Rachael-Lippincott-ebook/dp/B07M6SH243/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=1600711897&sr=8-3">
       <img src="../img/libro2.jpg" alt="eBook 2">
@@ -65,7 +65,7 @@
         // Añadimos la Imagen a la pagina
         echo "<img src=../img/".$row['img']." alt='".$row['title']."'>";
         // Añadimos el titulo a la pagina
-        
+        echo "<div class='desc'>".$row['title']."</div>";
         echo "</div>";
       }
     }else {
