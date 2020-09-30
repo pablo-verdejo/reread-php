@@ -5,10 +5,10 @@
 <title>CSS Website Layout</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet" type="text/css" href="../css/estilos.css"><link>
+<link rel="stylesheet" type="text/css" href="../css/estilos.css">
+<script src="./js/code.js"></script>
 </head>
-<body>
+<body onload="descriptionImg()">
 
 <div class="logo">Re-Read</div>
 
