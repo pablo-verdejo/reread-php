@@ -17,8 +17,6 @@
   <p>En Re-Read podrás encontrar libros de segunda mano en perfecto estado. También vender los tuyos. Porque siempre hay libros leídos y libros por leer. Por eso Re-compramos y Re-vendemos para que nunca te quedes sin ninguno de los dos.</p>
 </div>
 
-
-
 <div class="row">
   
   <div class="column left">
@@ -28,26 +26,38 @@
       <a href="libros.php">Libros</a>
       <a href="ebooks.php">eBooks</a>
     </div>
-    <h3>Toda la actualidad en eBook</h3>
-    
-      <!--<div class="ebook"> 
-        <a href="https://www.amazon.es/Cell-BEST-SELLER-Stephen-King/dp/8483465213"><img src="../img/ebook1.jpeg" alt="ebook 1">
-        <div>A través de los teléfonos móviles se envía un mensaje que convierte a todos en esclavos asesinos...</div>
-      </div>
-       <div class="ebook"> 
-        <a href="https://www.casadellibro.com/libro-el-ciclo-del-hombre-lobo/9788499081281/1819674"><img src="../img/ebook2.jpeg" alt="ebook 2">
-        <div>Una escalofriante revisión del mito del hombre lobo por el rey de la literatura de terror...</div>
-      </div>
-      <div class="ebook"> 
-        <a href="https://www.casadellibro.com/libro-el-resplandor/9788490328729/2197218"><img src="../img/ebook3.jpeg" alt="ebook 3">
-        <div>Esa es la palabra que Danny había visto en el espejo. Y, aunque no sabía leer, entendió que era un mensaje de horror...</div>
-      </div>
-      <div class="ebook"> 
-        <a href="https://www.casadellibro.com/libro-doctor-sueno/9788401354809/2196951"><img src="../img/ebook4.jpeg" alt="ebook 4">
-        <div>Una novela que entusiasmará a los millones de lectores de El resplandor y que encantará...</div>
-      </div> -->
 
-      <?php
+        <h3>Toda la actualidad en eBook</h3>
+
+      <div>
+        <form action="ebooks.php" method="POST">
+          <label for="autor">Autor</label>
+          <input type="text" id="autor" name="autor" placeholder="Introduce el autor...">
+
+          <!-- 
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+            <label for="country">Country</label>
+            <select id="country" name="country">
+              <option value="australia">Australia</option>
+              <option value="canada">Canada</option>
+              <option value="usa">USA</option>
+            </select> 
+          -->
+        
+          <input type="submit" value="Buscar">
+        </form>
+      </div>
+    <?php
+      if(isset($_POST[''])){
+        //filtrara los ebooks que se mostraran en la pagina
+      }else{
+        //mostrara todo los ebooks
+      }
+
+    ?>
+    <?php
         //Conexion a BDE
         include "../services/connection.php";
         //Seleccion y muestra de base de datos
@@ -72,10 +82,7 @@
           echo "0 resultados";
         }
 
-        
-        
-
-   echo "</div>";
+        echo "</div>";
 
         $result = mysqli_query($conn, "SELECT Books.Title FROM Books WHERE Top > 0");
 
@@ -88,10 +95,9 @@
           }
         echo "</div>";
 
-
-      ?>
+    ?>
           
 </div>
-  
+
 </body>
 </html>
