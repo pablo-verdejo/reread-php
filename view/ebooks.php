@@ -1,68 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<script src="../javascript/code.js"></script>
-<title>CSS Website Layout</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="../css/estilos.css">
-<script src="./js/code.js"></script>
-</head>
-<body onload="descriptionImg()">
+  <head>
+    <script src="../javascript/code.js"></script>
+    <title>CSS Website Layout</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+    <script src="./js/code.js"></script>
+  </head>
+  <body onload="descriptionImg()">
 
-<div class="logo">Re-Read</div>
+    <div class="logo">Re-Read</div>
 
-<div class="header">
-  <h1>Re-Read</h1>
-  <p>En Re-Read podrás encontrar libros de segunda mano en perfecto estado. También vender los tuyos. Porque siempre hay libros leídos y libros por leer. Por eso Re-compramos y Re-vendemos para que nunca te quedes sin ninguno de los dos.</p>
-</div>
-
-<div class="row">
-  
-  <div class="column left">
-
-    <div class="topnav">
-      <a href="../index.php">Re-Read</a>
-      <a href="libros.php">Libros</a>
-      <a href="ebooks.php">eBooks</a>
+    <div class="header">
+      <h1>Re-Read</h1>
+      <p>En Re-Read podrás encontrar libros de segunda mano en perfecto estado. También vender los tuyos. Porque siempre hay libros leídos y libros por leer. Por eso Re-compramos y Re-vendemos para que nunca te quedes sin ninguno de los dos.</p>
     </div>
 
-        <h3>Toda la actualidad en eBook</h3>
-
-      <div>
-        <form action="ebooks.php" method="POST">
-          <label for="autor">Autor</label>
-          <input type="text" id="autor" name="autor" placeholder="Introduce el autor...">
-
-          <!-- 
-            <label for="lname">Last Name</label>
-            <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-
-            <label for="country">Country</label>
+    <div class="row">
+      <div class="column left">
+        <div class="topnav">
+          <a href="../index.php">Re-Read</a>
+          <a href="libros.php">Libros</a>
+          <a href="ebooks.php">eBooks</a>
+        </div>
+      <h3>Toda la actualidad en eBook</h3>
+        <div>
+          <form action="ebooks.php" method="POST">
+            <label for="autor">Autor</label>
+            <input type="text" id="autor" name="autor" placeholder="Introduce el autor...">
+            <label for="country">Pais</label>
             <select id="country" name="country">
-              <option value="australia">Australia</option>
-              <option value="canada">Canada</option>
-              <option value="usa">USA</option>
-            </select> 
-          -->
-        
-          <input type="submit" value="Buscar">
-        </form>
-      </div>
-    <?php
-      if(isset($_POST[''])){
-        //filtrara los ebooks que se mostraran en la pagina
-      }else{
-        //mostrara todo los ebooks
-      }
-
-    ?>
-    <?php
-        //Conexion a BDE
-        include "../services/connection.php";
-        //Seleccion y muestra de base de datos
-        $result = mysqli_query($conn, "SELECT Books.Description, Books.img, Books.Title FROM Books WHERE eBook != '0'");
-
+              <option value="%">Todo los paises</option>
+              <?php
+              include "../services/connection.php";
+              $query="SELECT DISTINCT Authors.Country FROM Authors ORDER BY Country";
+              $result=mysqli_query($conn,$query);
+              while ($row=mysqli_fetch_array($result)) {
+                echo '<option value="'.$row[Country].'">'.$row[Country].'</option>';
+              }
+              ?>
+              <input type="submit" value="Buscar">
+            </select>
+          </form>
+        </div>
+      <?php
+        if(isset($_POST['autor'])){
+          $query="SELECT Books.Description, Books.img, Books.Title 
+          FROM Books INNER JOIN BooksAuthors ON Id=BooksAuthors.BookId
+          INNER JOIN Authors ON Authors.Id = BooksAuthors.AuthorId
+          WHERE Authors.Name LIKE '%{$_POST['autor']}%'
+          AND Authors.Country LIKE '%{$_POST['country']}%'";
+          $result = mysqli_query($conn,$query);
+        }else{
+          $result = mysqli_query($conn, "SELECT Books.Description, Books.img, Books.Title FROM Books WHERE eBook != '0'");
+        }
         if(!empty($result) && mysqli_num_rows($result) > 0) {
           //Datos de salirda de cada fila (fila = row)
           $i=0;
@@ -76,28 +68,25 @@
             echo "</div>";
             if ($i%3==0) {
               echo "<div style='clear:both;'></div>";
+              }
             }
-          }
-        } else{
+          }else{
           echo "0 resultados";
-        }
-
-        echo "</div>";
-
-        $result = mysqli_query($conn, "SELECT Books.Title FROM Books WHERE Top > 0");
-
-        echo "<div class='column right'>";
+          }
+          echo "</div>";
+        ?>
+        <?php
+          include "../services/connection.php";
+          $result = mysqli_query($conn, "SELECT Books.Title FROM Books WHERE Top > 0");
+          echo "<div class='column right'>";
           echo "<h2>Top ventas</h2>";
           if(!empty($result) && mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_array($result)) {
-              echo "<p>".$row['Title']."</p>";
-            }
-          }
-        echo "</div>";
-
-    ?>
-          
-</div>
-
-</body>
+                echo "<p>".$row['Title']."</p>";
+                }
+              }
+          echo "</div>";
+        ?>
+    </div>
+  </body>
 </html>
